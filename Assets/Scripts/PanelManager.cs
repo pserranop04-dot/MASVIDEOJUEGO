@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PanelManager : MonoBehaviour
 {
-
     public GameObject PanelJugar;
     public GameObject PanelConfig;
     public GameObject PanelNivel1;
@@ -12,7 +11,8 @@ public class PanelManager : MonoBehaviour
     {
         MostrarInicio();
     }
-     public void MostrarInicio()
+
+    public void MostrarInicio()
     {
         PanelJugar.SetActive(true);
         PanelConfig.SetActive(false);
@@ -34,8 +34,5 @@ public class PanelManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update() { }
 }
