@@ -7,6 +7,7 @@ public class ScriptCargarNivel1 : MonoBehaviour
 
     public void CargarEscena()
     {
+        Debug.Log("hola");
         SceneManager.LoadScene(escenajuego1);
     }
 
