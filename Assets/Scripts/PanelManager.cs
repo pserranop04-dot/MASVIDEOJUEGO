@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PanelManager : MonoBehaviour
 {
-    public GameObject PanelJugar;
-    public GameObject PanelConfig;
+    public GameObject PanelJugar; //panel menu
+    public GameObject PanelConfig; 
     public GameObject PanelNivel1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,11 +12,13 @@ public class PanelManager : MonoBehaviour
         MostrarInicio();
     }
 
+//MOSTRAR PANELES
     public void MostrarInicio()
     {
         PanelJugar.SetActive(true);
         PanelConfig.SetActive(false);
         PanelNivel1.SetActive(false);
+        AudioManager.instancia.ReproducirMusica(AudioManager.instancia.MusicaMenu);
     }
 
     public void MostrarSettings()
