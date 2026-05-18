@@ -30,9 +30,14 @@ public class MovPersonaje : MonoBehaviour
             0
         );
 
-    //Movimiento personaje
+        //Movimiento personaje
         //rb.linearVelocity = new Vector2(miDeltaTime, rb.linearVelocityY);
-    
+
+
+        //Flip izquierda y derecha
+        //if (Input.GetKeyDown(KeyCode.A)){};
+        //this.GetComponent<SpriteRenderer>().flipX = true;
+
     
     //Salto
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
@@ -47,7 +52,6 @@ public class MovPersonaje : MonoBehaviour
             puedoSaltar = false;
         }
 
-    // Salto
         if (InputSystem.actions["Jump"].IsPressed() )//&& puedoSaltar)
         {
            rb.AddForce(
