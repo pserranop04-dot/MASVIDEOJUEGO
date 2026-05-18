@@ -62,6 +62,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 4839460dac2f25249b1101b7c31ee263, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5449993086023660907}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 4839460dac2f25249b1101b7c31ee263, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3425602970378346919}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 4839460dac2f25249b1101b7c31ee263, type: 3}
 --- !u!1 &6205818103595067121 stripped
 GameObject:
@@ -141,3 +144,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3425602970378346919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205818103595067121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18639a2731fefbf468b68656c181f934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovPersonaje
