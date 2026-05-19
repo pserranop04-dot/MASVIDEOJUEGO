@@ -1172,7 +1172,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3425602970378346919, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: salto
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425602970378346919, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
+      propertyPath: multiplicador
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5104662483343490706, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1216,7 +1220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449993086023660907, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_Mass
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5449993086023660907, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_Constraints
@@ -1229,6 +1233,22 @@ PrefabInstance:
     - target: {fileID: 6205818103595067121, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_Name
       value: Personaje
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380250272235987302, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
+      propertyPath: m_Size.x
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380250272235987302, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
+      propertyPath: m_Size.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380250272235987302, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380250272235987302, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
