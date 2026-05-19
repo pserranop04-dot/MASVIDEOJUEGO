@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,7 @@ public class MovPersonaje : MonoBehaviour
     public float multiplicador = 5f;
     public float salto = 0.1f;
 
-    private bool puedoSaltar = true;
+    bool puedoSaltar = false;
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,16 +35,28 @@ public class MovPersonaje : MonoBehaviour
         //rb.linearVelocity = new Vector2(miDeltaTime, rb.linearVelocityY);
 
 
-        //Flip izquierda y derecha
-        //if (Input.GetKeyDown(KeyCode.A)){};
-        //this.GetComponent<SpriteRenderer>().flipX = true;
+    //Flip izquierda y derecha
+        //this.transform.Translate(movTeclas.x * multiplicador, 0, 0);
+
+        if (movTeclas.x < 0)
+        {
+         this.GetComponent<SpriteRenderer>().flipX = true;   
+        }
+        else if (movTeclas.x > 0)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        
 
     
     //Salto
+
+        bool salto = InputSystem.actions["Jump"].WasCompletedThisFrame();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
+        
         Debug.DrawRay(transform.position, Vector2.down, Color.magenta);
 
-        if (hit)
+        if (hit == true) //(hit.collider == true)
         {
             puedoSaltar = true;
             Debug.Log(hit.collider.name);
@@ -52,10 +65,10 @@ public class MovPersonaje : MonoBehaviour
             puedoSaltar = false;
         }
 
-        if (InputSystem.actions["Jump"].IsPressed() )//&& puedoSaltar)
+        if (InputSystem.actions["Jump"].IsPressed() )// (salto && puedoSaltar)
         {
            rb.AddForce(
-            new Vector2 (0,salto),
+            new Vector2 (0, 1f),
             ForceMode2D.Impulse
             );
         };
