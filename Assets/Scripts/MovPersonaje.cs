@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +8,9 @@ public class MovPersonaje : MonoBehaviour
     public float salto = 0.1f;
 
     bool puedoSaltar = false;
+    //private bool tocaSuelo; //para que detecte que no toca suelo y aplicarlo para que contabilice el salto una vez deje de tocar el suelo.
+    private int contarSalto = 0; // contabilizador de salto
+
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,21 +33,18 @@ public class MovPersonaje : MonoBehaviour
             0
         );
 
-        //Movimiento personaje
-        //rb.linearVelocity = new Vector2(miDeltaTime, rb.linearVelocityY);
-
 
     //Flip izquierda y derecha
         //this.transform.Translate(movTeclas.x * multiplicador, 0, 0);
 
         if (movTeclas.x < 0)
         {
-         this.GetComponent<SpriteRenderer>().flipX = true;   
+           this.GetComponent<SpriteRenderer>().flipX = true;   
         }
         else if (movTeclas.x > 0)
         {
             this.GetComponent<SpriteRenderer>().flipX = false;
-        }
+        };
         
 
     
@@ -56,22 +55,26 @@ public class MovPersonaje : MonoBehaviour
         
         Debug.DrawRay(transform.position, Vector2.down, Color.magenta);
 
+        if (InputSystem.actions["Jump"].IsPressed() && (puedoSaltar || contarSalto < 2) )// añadido puedo saltar y contar salto
+        {
+           rb.AddForce( new Vector2 (0, 1f),ForceMode2D.Impulse);
+
+            contarSalto++; //incrementará el salto a doble salto
+        };
+
         if (hit == true) //(hit.collider == true)
         {
             puedoSaltar = true;
             Debug.Log(hit.collider.name);
+            //tocaSuelo = true;
+            contarSalto = 0; //resetea el contabilizador del salto a 0
+            
         }else
         {
             puedoSaltar = false;
-        }
-
-        if (InputSystem.actions["Jump"].IsPressed() )// (salto && puedoSaltar)
-        {
-           rb.AddForce(
-            new Vector2 (0, 1f),
-            ForceMode2D.Impulse
-            );
         };
+
+        
         
     }
 

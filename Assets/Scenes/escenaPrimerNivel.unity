@@ -1172,7 +1172,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3425602970378346919, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: salto
-      value: 0.08
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5104662483343490706, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1216,7 +1216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449993086023660907, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5449993086023660907, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_Constraints
