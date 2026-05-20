@@ -5,7 +5,7 @@ public class MovPersonaje : MonoBehaviour
 {
 
     public float multiplicador = 5f;
-    public float salto = 0.1f;
+    public float potenciaSalto = 0.1f;
 
     bool puedoSaltar = false;
     //private bool tocaSuelo; //para que detecte que no toca suelo y aplicarlo para que contabilice el salto una vez deje de tocar el suelo.
@@ -50,22 +50,16 @@ public class MovPersonaje : MonoBehaviour
     
     //Salto
 
-        bool salto = InputSystem.actions["Jump"].WasCompletedThisFrame();
+        bool salto = InputSystem.actions["Jump"].WasPressedThisFrame();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
         
-        Debug.DrawRay(transform.position, Vector2.down, Color.magenta);
+        Debug.DrawRay(transform.position, Vector2.down * 0.5f, Color.magenta);
 
-        if (InputSystem.actions["Jump"].IsPressed() && (puedoSaltar || contarSalto < 2) )// añadido puedo saltar y contar salto
-        {
-           rb.AddForce( new Vector2 (0, 1f),ForceMode2D.Impulse);
-
-            contarSalto++; //incrementará el salto a doble salto
-        };
 
         if (hit == true) //(hit.collider == true)
         {
             puedoSaltar = true;
-            Debug.Log(hit.collider.name);
+           // Debug.Log(hit.collider.name);
             //tocaSuelo = true;
             contarSalto = 0; //resetea el contabilizador del salto a 0
             
@@ -73,6 +67,17 @@ public class MovPersonaje : MonoBehaviour
         {
             puedoSaltar = false;
         };
+        Debug.Log(puedoSaltar);
+
+
+        if (salto && (puedoSaltar || contarSalto < 1) )// añadido puedo saltar y contar salto
+        {
+           rb.AddForce( new Vector2 (0, potenciaSalto),ForceMode2D.Impulse);
+
+            contarSalto++; //incrementará el salto a doble salto
+        }
+
+        
 
         
         
