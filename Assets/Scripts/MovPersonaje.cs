@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 public class MovPersonaje : MonoBehaviour
 {
 
-    public float multiplicador = 5f;
-    public float potenciaSalto = 0.1f;
+    public float velocidad = 5f;
+    public float potenciaSalto = 35f;
+
+    public bool direccionDerecha = true;
 
     bool puedoSaltar = false;
     //private bool tocaSuelo; //para que detecte que no toca suelo y aplicarlo para que contabilice el salto una vez deje de tocar el suelo.
@@ -15,40 +17,46 @@ public class MovPersonaje : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("Hola");
+        //Debug.Log("Hola");
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-    // Andar/Moverse
+    // ANDAR/MOVERSE
+
         Vector2 movTeclas = InputSystem.actions["Move"].ReadValue<Vector2>();
        
       
       float miDeltaTime = Time.deltaTime;
 
         transform.Translate(
-            movTeclas*(Time.deltaTime*multiplicador),
+            movTeclas*(Time.deltaTime * velocidad),
             0
         );
 
 
-    //Flip izquierda y derecha
-        //this.transform.Translate(movTeclas.x * multiplicador, 0, 0);
+    //FLIP izquierda y derecha
+
+        //this.transform.Translate(movTeclas.x, 0, 0);
 
         if (movTeclas.x < 0)
         {
+            direccionDerecha = false;
            this.GetComponent<SpriteRenderer>().flipX = true;   
         }
         else if (movTeclas.x > 0)
         {
+            direccionDerecha = true;
             this.GetComponent<SpriteRenderer>().flipX = false;
         };
+
+    //ANIMACIÓN CAMINADO
         
 
     
-    //Salto
+    //SALTO
 
         bool salto = InputSystem.actions["Jump"].WasPressedThisFrame();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
@@ -67,6 +75,7 @@ public class MovPersonaje : MonoBehaviour
         {
             puedoSaltar = false;
         };
+        
         Debug.Log(puedoSaltar);
 
 
