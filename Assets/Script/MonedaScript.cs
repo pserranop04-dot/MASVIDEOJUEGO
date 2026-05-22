@@ -23,7 +23,8 @@ public class MonedaScript : MonoBehaviour
         //MONEDA
         if(col.gameObject.name == "Personaje")
         {
-            GameManager.puntos += valor;
+
+            GameManager.Instance.ActualizaMarcador(valor);
 
             gameObject.GetComponent<Animator>().SetBool("monedaDestruir", true);
 
