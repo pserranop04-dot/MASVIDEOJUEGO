@@ -11,6 +11,8 @@ public class MovPersonaje : MonoBehaviour
 
     bool puedoSaltar = false;
     //private bool tocaSuelo; //para que detecte que no toca suelo y aplicarlo para que contabilice el salto una vez deje de tocar el suelo.
+
+    Animator controlAnimacion;
     private int contarSalto = 0; // contabilizador de salto
 
     private Rigidbody2D rb;
@@ -19,6 +21,7 @@ public class MovPersonaje : MonoBehaviour
     {
         //Debug.Log("Hola");
         rb = GetComponent<Rigidbody2D>();
+        controlAnimacion = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -37,6 +40,7 @@ public class MovPersonaje : MonoBehaviour
         );
 
 
+
     //FLIP izquierda y derecha
 
         //this.transform.Translate(movTeclas.x, 0, 0);
@@ -53,7 +57,14 @@ public class MovPersonaje : MonoBehaviour
         };
 
     //ANIMACIÓN CAMINADO
-        
+           if (movTeclas.x != 0)
+        {
+            controlAnimacion.SetBool("activaCamina", true);
+        }
+        else
+        {
+            controlAnimacion.SetBool("activaCamina", false);
+        }
 
     
     //SALTO
