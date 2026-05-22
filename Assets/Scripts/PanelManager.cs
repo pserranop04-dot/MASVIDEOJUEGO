@@ -3,7 +3,7 @@ using UnityEngine;
 public class PanelManager : MonoBehaviour
 {
     public GameObject PanelJugar; //panel menu
-    public GameObject PanelConfig; 
+    public GameObject PanelConfig;
     public GameObject PanelNivel1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,7 +12,7 @@ public class PanelManager : MonoBehaviour
         MostrarInicio();
     }
 
-//MOSTRAR PANELES
+    //MOSTRAR PANELES
     public void MostrarInicio()
     {
         PanelJugar.SetActive(true);
@@ -33,6 +33,7 @@ public class PanelManager : MonoBehaviour
         PanelJugar.SetActive(false);
         PanelConfig.SetActive(false);
         PanelNivel1.SetActive(true);
+       
     }
 
     // Update is called once per frame

@@ -7,8 +7,8 @@ public class ScriptCargarNivel1 : MonoBehaviour
 
     public void CargarEscena()
     {
-        Debug.Log("hola");
         SceneManager.LoadScene(Escenajuego1);
+        AudioManager.instancia.ReproducirMusica(AudioManager.instancia.MusicaEscena1);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
