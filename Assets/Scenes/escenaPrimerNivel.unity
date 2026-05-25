@@ -554,6 +554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 557480675}
   - component: {fileID: 557480674}
+  - component: {fileID: 557480676}
   m_Layer: 0
   m_Name: fondo 1_0
   m_TagString: Untagged
@@ -635,6 +636,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &557480676
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557480673}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e50cc8923e613414a8e82011e6690de7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,6 +1511,10 @@ PrefabInstance:
       propertyPath: potenciaSalto
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 3425602970378346919, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
+      propertyPath: direccionDerecha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5104662483343490706, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.11
@@ -1765,7 +1792,7 @@ PrefabInstance:
       addedObject: {fileID: 1215133112}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6205818103595067121, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
-      insertIndex: -1
+      insertIndex: 4
       addedObject: {fileID: 507085857}
   m_SourcePrefab: {fileID: 100100000, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
 --- !u!1660057539 &9223372036854775807
