@@ -41,20 +41,27 @@ public class MovPersonaje : MonoBehaviour
 
 
 
-    //FLIP izquierda y derecha
+        //FLIP izquierda y derecha
 
         //this.transform.Translate(movTeclas.x, 0, 0);
-
-        if (movTeclas.x < 0)
+        if(movTeclas.x > 0 && !direccionDerecha)
         {
-            direccionDerecha = false;
+            girar();
+        } else if (movTeclas.x < 0 && direccionDerecha)
+        {
+            girar();
+        };
+        
+        /*if (movTeclas.x < 0)
+        {
+           direccionDerecha = false;
            this.GetComponent<SpriteRenderer>().flipX = true;   
         }
         else if (movTeclas.x > 0)
         {
             direccionDerecha = true;
             this.GetComponent<SpriteRenderer>().flipX = false;
-        };
+        };*/
 
     //ANIMACIÓN CAMINADO
            if (movTeclas.x != 0)
@@ -98,9 +105,20 @@ public class MovPersonaje : MonoBehaviour
         }
 
         
-
-        
         
     }
+
+    //GIRAR
+
+    private void girar()
+    {
+        direccionDerecha = !direccionDerecha;
+        Vector3 escala = transform.localScale;
+        escala.x *=-1;
+        transform.localScale = escala;
+    }
+
+
+
 
 }
