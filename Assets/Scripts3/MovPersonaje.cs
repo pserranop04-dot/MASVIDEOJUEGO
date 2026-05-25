@@ -43,8 +43,7 @@ public class MovPersonaje : MonoBehaviour
 
         //FLIP izquierda y derecha
 
-        //this.transform.Translate(movTeclas.x, 0, 0);
-        if(movTeclas.x > 0 && !direccionDerecha)
+        if (movTeclas.x > 0 && !direccionDerecha)
         {
             girar();
         } else if (movTeclas.x < 0 && direccionDerecha)
@@ -52,6 +51,7 @@ public class MovPersonaje : MonoBehaviour
             girar();
         };
         
+        //this.transform.Translate(movTeclas.x, 0, 0);
         /*if (movTeclas.x < 0)
         {
            direccionDerecha = false;
@@ -94,7 +94,7 @@ public class MovPersonaje : MonoBehaviour
             puedoSaltar = false;
         };
         
-        Debug.Log(puedoSaltar);
+        //Debug.Log(puedoSaltar);
 
 
         if (salto && (puedoSaltar || contarSalto < 1) )// añadido puedo saltar y contar salto
@@ -110,11 +110,11 @@ public class MovPersonaje : MonoBehaviour
 
     //GIRAR
 
-    private void girar()
+    private void girar() // primero invertir el valor de la variable, y rotar el personaje multimplicando la escala en -1
     {
         direccionDerecha = !direccionDerecha;
         Vector3 escala = transform.localScale;
-        escala.x *=-1;
+        escala.x *= -1;
         transform.localScale = escala;
     }
 
