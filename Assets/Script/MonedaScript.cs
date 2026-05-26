@@ -18,12 +18,11 @@ public class MonedaScript : MonoBehaviour
         //Debug.Log(col.gameObject.name);
     }
 
-    void OnTriggerEnter2D (Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         //MONEDA
-        if(col.gameObject.name == "Personaje")
+        if (col.gameObject.name == "Personaje")
         {
-
             GameManager.Instance.ActualizaMarcador(valor);
 
             gameObject.GetComponent<Animator>().SetBool("monedaDestruir", true);
