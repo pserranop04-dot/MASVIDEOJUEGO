@@ -1,3 +1,4 @@
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,27 +7,32 @@ public class MovPersonaje : MonoBehaviour
 
     public float velocidad = 5f;
     public float potenciaSalto = 35f;
-
     public bool direccionDerecha = true;
-
     bool puedoSaltar = false;
     //private bool tocaSuelo; //para que detecte que no toca suelo y aplicarlo para que contabilice el salto una vez deje de tocar el suelo.
-
     Animator controlAnimacion;
     private int contarSalto = 0; // contabilizador de salto
-
     private Rigidbody2D rb;
+
+    GameObject respawn;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //Debug.Log("Hola");
         rb = GetComponent<Rigidbody2D>();
         controlAnimacion = this.GetComponent<Animator>();
+
+        respawn = GameObject.Find ("Respawn");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        //APLICAR CUANDO SE JUNTE TODO
+        //if(GameManager.estoyMuerto) return; //esto hace que el resto de código se ignore al morir
+
     // ANDAR/MOVERSE
 
         Vector2 movTeclas = InputSystem.actions["Move"].ReadValue<Vector2>();
@@ -104,6 +110,19 @@ public class MovPersonaje : MonoBehaviour
             contarSalto++; //incrementará el salto a doble salto
         }
 
+
+
+        //Comprobar si me he salido de la pantalla CAMBIAR VALOR
+        if(transform.position.y <= -7){
+            Respawnear();
+        }
+
+        //APLICAR CUANDO SE JUNTE TODO
+        //SIN VIDA
+        /*if(GameManager.vidas <= 0)
+        {
+            GameManager.estoyMuerto= true;
+        }*/
         
         
     }
@@ -118,7 +137,15 @@ public class MovPersonaje : MonoBehaviour
         transform.localScale = escala;
     }
 
-
+    //APLICAR CUANDO SE JUNTE TODO
+    //Para volver al lugar de salida una vez mueras (donde se encuentre el respawn)
+    public void Respawnear()
+    {
+        //Debug.Log("vidas: "+GameManager.vidas);
+        //GameManager.vidas = GameManager.vidas -1;
+        //Debug.Log("vidas: "+GameManager.vidas);
+        transform.position = respawn.transform.position;
+    }
 
 
 }
