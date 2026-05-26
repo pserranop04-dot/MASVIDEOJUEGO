@@ -15,16 +15,7 @@ public class Trepar : MonoBehaviour
     private bool estaTocandoCuerda;
     private bool trepando;
     private float gravedadInicial;
-   /* public float velocidadTrepar = 5f;
-    private bool detectaCuerda;
-
-    private bool estaTrepando;
-
-    BoxCollider2D bx;
-
-    private Rigidbody2D rb;
-
-    private float conGravedad;*/
+  
     Animator treparAnimacion;
 
     InputAction moveAction;
@@ -35,10 +26,6 @@ public class Trepar : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         gravedadInicial = rb.gravityScale;
         treparAnimacion = this.GetComponent<Animator>();
-        /*rb = GetComponent<Rigidbody2D>();
-        
-        conGravedad = rb.gravityScale;*/
-
         moveAction = InputSystem.actions.FindAction("Move");
 
     }
@@ -47,7 +34,6 @@ public class Trepar : MonoBehaviour
     void Update()
     {
         //para leer las entradas del teclado 
-
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
         entradaHorizontal = moveAction.ReadValue<Vector2>().x;
@@ -79,29 +65,7 @@ public class Trepar : MonoBehaviour
         {
             rb.gravityScale = gravedadInicial;
         }
-       /* //Vector2 movTrepar = InputSystem.actions["Up"].ReadValue<Vector2>();
-        //float verticalInput = Input.GetAxisRaw ("Vertical");
-
-        //if (detectaCuerda && Mathf.Abs(verticalInput) > 0f) // si toca la cuerda y presiona los botones, realiza la acción
-        {
-            estaTrepando = true;
-        }
-        if (estaTrepando) //desactivar gravedad
-        {
-            rb.gravityScale = 0f;
-            //rb.linearVelocityY = new Vector2( rb.linearVelocity.y, verticalInput * velocidadTrepar );
-        }
-
-
-        if (movTrepar.y != 0)
-        {
-            treparAnimacion.SetBool("activaTrepar", false);
-        }
-        else
-        {
-            treparAnimacion.SetBool("activaTrepar", true);
-        }*/
-
+      
     }
 
     void FixedUpdate()
@@ -124,21 +88,6 @@ public class Trepar : MonoBehaviour
             Gizmos.DrawWireSphere(comprobadorCuerda.position, radioComprobacion);
         }
     }
-    /*  private void OnTriggerEnter2D(Collider2D collision)
-    {
-    if (collision.CompareTag("Cuerda"))
-    {
-        detectaCuerda = true;
-    }
-    }
-    private void OnTriggerExit2D(Collider2D collision) // restaurar gravedad al soltar
-    {
-
-    if (collision.CompareTag("Cuerda"))
-    {
-        detectaCuerda = false;
-        estaTrepando = false;
-        rb.gravityScale = conGravedad; 
-    }*/
+    
 }
 
