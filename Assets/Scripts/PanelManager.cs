@@ -6,6 +6,9 @@ public class PanelManager : MonoBehaviour
     public GameObject PanelConfig;
     public GameObject PanelNivel1;
 
+    
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,6 +18,7 @@ public class PanelManager : MonoBehaviour
     //MOSTRAR PANELES
     public void MostrarInicio()
     {
+        
         PanelJugar.SetActive(true);
         PanelConfig.SetActive(false);
         PanelNivel1.SetActive(false);
@@ -33,6 +37,8 @@ public class PanelManager : MonoBehaviour
         PanelJugar.SetActive(false);
         PanelConfig.SetActive(false);
         PanelNivel1.SetActive(true);
+       
+       
        
     }
 
