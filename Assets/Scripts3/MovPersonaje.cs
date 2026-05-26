@@ -84,7 +84,7 @@ public class MovPersonaje : MonoBehaviour
         bool salto = InputSystem.actions["Jump"].WasPressedThisFrame();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
         
-        Debug.DrawRay(transform.position, Vector2.down * 0.5f, Color.magenta);
+        //Debug.DrawRay(transform.position, Vector2.down * 0.5f, Color.magenta);
 
 
         if (hit == true) //(hit.collider == true)

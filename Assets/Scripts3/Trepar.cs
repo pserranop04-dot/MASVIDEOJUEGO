@@ -45,7 +45,7 @@ public class Trepar : MonoBehaviour
         //si tocamos la cuerda y se presiona arriba o abajo, empezamos a trepar
         if (estaTocandoCuerda && Mathf.Abs(entradaVertical)> 0.1f)
         {
-            Debug.DrawLine(transform.position, transform.position*3, Color.aliceBlue);
+            //Debug.DrawLine(transform.position, transform.position*3, Color.aliceBlue);
             treparAnimacion.SetBool("activaTrepar", true);
             trepando = true;
         }
