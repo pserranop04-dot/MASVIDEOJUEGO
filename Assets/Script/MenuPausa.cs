@@ -1,4 +1,4 @@
-using System.Xml.Serialization;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -7,6 +7,8 @@ public class MenuPausa : MonoBehaviour
 {
     public GameObject ObjetoMenuPausa;
     private bool pausa = false;
+    //public MovimientoJugador jugador; para pausar el personaje al abrir menu pausa//
+    //private bool pausa = false;
 
     void Start()
     {
@@ -37,6 +39,8 @@ public class MenuPausa : MonoBehaviour
         Time.timeScale = 0f;
 
         AudioListener.pause = true;
+
+        //jugador.enabled = false; pausar mov//
     }
 
     public void Resumir()
@@ -46,6 +50,8 @@ public class MenuPausa : MonoBehaviour
         Time.timeScale = 1f;
 
         AudioListener.pause = false;
+
+        //jugador.enabled = true; reactivar mov//
     }
 
     public void IrAlMenu(string nombreMenu)

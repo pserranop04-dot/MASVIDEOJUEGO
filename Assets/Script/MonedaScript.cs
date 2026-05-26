@@ -27,7 +27,12 @@ public class MonedaScript : MonoBehaviour
 
             gameObject.GetComponent<Animator>().SetBool("monedaDestruir", true);
 
+            GetComponent<Collider2D>().enabled = false;
+
             Destroy(this.gameObject, 1.0f);
+
+            //Reproducir sonido de moneda
+            AudioManager.instancia.ReproducirEfecto(AudioManager.instancia.SonidoMonedas);
         }
     }
 }
