@@ -1,12 +1,12 @@
-/*using TMPro;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI textoMonedas;
 
-    void Update()
+    public void ActualizarMonedas()
     {
-        textoMonedas.text = "Monedas: " + GameManager.instancia.monedasTotales;
+        textoMonedas.text = GameManager.Instance.puntosGlobales.ToString();
     }
-}*/
+}
