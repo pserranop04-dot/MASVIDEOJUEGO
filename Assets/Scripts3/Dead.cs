@@ -3,26 +3,15 @@ using UnityEngine;
 
 public class Dead : MonoBehaviour
 {
-    private GameObject personaje;
-    private MovPersonaje movPersonaje;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        personaje = GameObject.Find("Personaje");
-        movPersonaje = personaje.GetComponent<MovPersonaje>();
-    }
-
-    // Update is called once per frame
-    void Update() { }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.name == "Personaje")
+        // Solo reaccionar si el objeto que entra es el jugador
+        if (col.CompareTag("Player"))
         {
-            Debug.Log(col.name);
-            movPersonaje.Respawnear();
+            Debug.Log("Jugador tocó zona de muerte");
+
+            // Llamar al GameManager para gestionar la muerte
+            GameManager.Instance.MuertePorCamara();
         }
-        
     }
 }

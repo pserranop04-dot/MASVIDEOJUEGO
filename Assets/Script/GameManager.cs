@@ -1,51 +1,101 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public static int vidas = 2;
-    public static bool estoyMuerto = false;
-    public static int muertes = 0;
+
+    public int vidas = 2;
+    public int muertes = 0;
+    public bool estoyMuerto = false;
+
     public int puntos = 0;
     public int puntosGlobales = 0;
 
+    public Transform personaje;
+    public Transform respawn;
+    public TextMeshProUGUI monedasText;
+
     private void Awake()
     {
-        // Si ya existe otro singleton, destruye este
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        // Asignar instancia
-        else
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        if (monedasText == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            GameObject obj = GameObject.Find("MonedasText");
+            if (obj != null)
+                monedasText = obj.GetComponent<TextMeshProUGUI>();
         }
-
-    
-    }
-
-    GameObject MonedasText;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        MonedasText = GameObject.Find("MonedasText");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log("Puntos" + puntos);
-        //Debug.Log("Vidas: " + vidas);
     }
 
     public void ActualizaMarcador(int valor)
     {
         puntos += valor;
-        MonedasText.GetComponent<TextMeshProUGUI>().text = puntos.ToString();
+
+        if (monedasText != null)
+            monedasText.text = puntos.ToString();
+    }
+
+    public void MuertePorCamara()
+    {
+        if (estoyMuerto)
+            return;
+
+        estoyMuerto = true;
+        vidas--;
+        muertes++;
+
+        if (vidas > 0)
+        {
+            Respawn();
+        }
+        else
+        {
+            IrAlMenu();
+        }
+    }
+
+    private void Respawn()
+    {
+        if (personaje == null)
+        {
+            Debug.LogError("ERROR: GameManager.personaje es NULL");
+            return;
+        }
+
+        if (respawn == null)
+        {
+            Debug.LogError("ERROR: GameManager.respawn es NULL");
+            return;
+        }
+
+        personaje.position = respawn.position;
+
+        // Resetear cámara si existe
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            CameraKiller ck = cam.GetComponent<CameraKiller>();
+            if (ck != null)
+                ck.ResetearCamara();
+        }
+
+        estoyMuerto = false;
+    }
+
+    private void IrAlMenu()
+    {
+        SceneManager.LoadScene("UInterfaz1");
     }
 }

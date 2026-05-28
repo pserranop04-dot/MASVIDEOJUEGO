@@ -6,130 +6,78 @@ public class MovPersonaje : MonoBehaviour
 {
     public float velocidad = 5f;
     public float potenciaSalto = 35f;
+
     public bool direccionDerecha = true;
     bool puedoSaltar = false;
 
-    //private bool tocaSuelo; //para que detecte que no toca suelo y aplicarlo para que contabilice el salto una vez deje de tocar el suelo.
     Animator controlAnimacion;
-    private int contarSalto = 0; // contabilizador de salto
-    private Rigidbody2D rb;
+    Rigidbody2D rb;
 
-    GameObject respawn;
+    int contarSalto = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    Transform respawn;
+
     void Start()
     {
-        //Debug.Log("Hola");
         rb = GetComponent<Rigidbody2D>();
-        controlAnimacion = this.GetComponent<Animator>();
+        controlAnimacion = GetComponent<Animator>();
 
-        respawn = GameObject.Find("Respawn");
+        // Respawn desde la escena
+        GameObject r = GameObject.Find("Respawn");
+        if (r != null)
+            respawn = r.transform;
+
+        // Registrar personaje en GameManager
+        GameManager.Instance.personaje = this.transform;
+        GameManager.Instance.respawn = respawn;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //APLICAR CUANDO SE JUNTE TODO
-        if (GameManager.estoyMuerto)
-        {
+        // Si está muerto → no se mueve
+        if (GameManager.Instance.estoyMuerto)
             return;
-        }
-        //esto hace que el resto de código se ignore al morir
 
-        // ANDAR/MOVERSE
-
+        // MOVIMIENTO
         Vector2 movTeclas = InputSystem.actions["Move"].ReadValue<Vector2>();
+        transform.Translate(movTeclas * velocidad * Time.deltaTime);
 
-        float miDeltaTime = Time.deltaTime;
+        // FLIP
+        if (movTeclas.x > 0 && !direccionDerecha) girar();
+        else if (movTeclas.x < 0 && direccionDerecha) girar();
 
-        transform.Translate(movTeclas * (Time.deltaTime * velocidad), 0);
+        // ANIMACIÓN CAMINAR
+        controlAnimacion.SetBool("activaCamina", movTeclas.x != 0);
 
-        //FLIP izquierda y derecha
-
-        if (movTeclas.x > 0 && !direccionDerecha)
-        {
-            girar();
-        }
-        else if (movTeclas.x < 0 && direccionDerecha)
-        {
-            girar();
-        }
-        ;
-
-        //this.transform.Translate(movTeclas.x, 0, 0);
-        /*if (movTeclas.x < 0)
-        {
-           direccionDerecha = false;
-           this.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else if (movTeclas.x > 0)
-        {
-            direccionDerecha = true;
-            this.GetComponent<SpriteRenderer>().flipX = false;
-        };*/
-
-        //ANIMACIÓN CAMINADO
-        if (movTeclas.x != 0)
-        {
-            controlAnimacion.SetBool("activaCamina", true);
-        }
-        else
-        {
-            controlAnimacion.SetBool("activaCamina", false);
-        }
-
-        //SALTO
-
+        // SALTO
         bool salto = InputSystem.actions["Jump"].WasPressedThisFrame();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
 
-        //Debug.DrawRay(transform.position, Vector2.down * 0.5f, Color.magenta);
-
-        if (hit == true) //(hit.collider == true)
+        if (hit.collider != null)
         {
             puedoSaltar = true;
-            // Debug.Log(hit.collider.name);
-            //tocaSuelo = true;
-            contarSalto = 0; //resetea el contabilizador del salto a 0
+            contarSalto = 0;
         }
         else
         {
             puedoSaltar = false;
         }
-        ;
 
-        //Debug.Log(puedoSaltar);
-
-        if (salto && (puedoSaltar || contarSalto < 1)) // añadido puedo saltar y contar salto
+        if (salto && (puedoSaltar || contarSalto < 1))
         {
-            rb.AddForce(new Vector2(0, potenciaSalto), ForceMode2D.Impulse);
-
-            contarSalto++; //incrementará el salto a doble salto
+            rb.AddForce(Vector2.up * potenciaSalto, ForceMode2D.Impulse);
+            contarSalto++;
         }
 
-        //Comprobar si me he salido de la pantalla CAMBIAR VALOR
+        // CAER FUERA DE LA PANTALLA
         if (transform.position.y <= -7)
         {
-            Respawnear();
+            GameManager.Instance.MuertePorCamara();
         }
-
-        //APLICAR CUANDO SE JUNTE TODO
-        //SIN VIDA
-        if (GameManager.vidas <= 0)
-        {
-            GameManager.estoyMuerto = true;
-        }
-        /* else
-         {
-             Debug.Log("Sin vidas, cargando menú");
-             GameManager.vidas = 0;
-             SceneManager.LoadScene("UIinterfaz1"); // nombre real de tu escena de menú
-         }*/
     }
 
-    //GIRAR
-
-    private void girar() // primero invertir el valor de la variable, y rotar el personaje multimplicando la escala en -1
+    // GIRAR SPRITE
+    private void girar()
     {
         direccionDerecha = !direccionDerecha;
         Vector3 escala = transform.localScale;
@@ -137,46 +85,18 @@ public class MovPersonaje : MonoBehaviour
         transform.localScale = escala;
     }
 
-    //APLICAR CUANDO SE JUNTE TODO
-    //Para volver al lugar de salida una vez mueras (donde se encuentre el respawn)
-    public void Respawnear()
-    {
-        //GameManager.vidas = GameManager.vidas - 1;
-
-        transform.position = respawn.transform.position;
-    }
-
-    public void Morir()
-    {
-        // Restar vida
-        GameManager.vidas--;
-
-        Debug.Log("Vidas restantes: " + GameManager.vidas);
-
-        // Si aún quedan vidas → respawn
-        if (GameManager.vidas > 0)
-        {
-            Respawnear();
-        }
-        else
-        {
-            // Sin vidas → cargar menú
-            SceneManager.LoadScene("UIinterfaz1"); // Cambia por el nombre real de tu menú
-        }
-    }
-
-    //Muerte por colisión con Cámara
-    void OnTriggerEnter2D(Collider2D other)
+    // TRIGGER CON LA CÁMARA
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("MainCamera"))
         {
-            // Reiniciar el juego
-            Debug.Log("Colisión con cámara, reiniciando juego...");       
+            GameManager.Instance.MuertePorCamara();
         }
     }
-
-
 }
+
+
+
 
 
 

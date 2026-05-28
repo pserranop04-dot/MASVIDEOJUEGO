@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 33668019}
   - component: {fileID: 33668018}
   - component: {fileID: 33668017}
+  - component: {fileID: 33668021}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -221,6 +222,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &33668021
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33668016}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 1
 --- !u!1 &39514620 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6205818103595067121, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
@@ -2658,8 +2671,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced0143697cd7874384d744daba32198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  vidas: 2
+  muertes: 0
+  estoyMuerto: 0
   puntos: 0
   puntosGlobales: 0
+  personaje: {fileID: 39514627}
+  respawn: {fileID: 1882739036}
+  monedasText: {fileID: 0}
 --- !u!4 &356266025
 Transform:
   m_ObjectHideFlags: 0
@@ -4403,7 +4422,7 @@ GameObject:
   - component: {fileID: 584377752}
   - component: {fileID: 584377751}
   - component: {fileID: 584377750}
-  - component: {fileID: 584377749}
+  - component: {fileID: 584377755}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4411,22 +4430,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &584377749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584377748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a22b7e236a667e14085cfd971371a652, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameControllerScript
-  velocidad: 0
-  velocidadMaxima: 0
-  monedasTotales: 100
-  oscurecedor: {fileID: 979105571}
 --- !u!114 &584377750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4570,6 +4573,18 @@ Transform:
   - {fileID: 1498472322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &584377755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584377748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e01d34bbb3311468ef54f06eafb81d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraKiller
 --- !u!1001 &591032946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6931,7 +6946,7 @@ GameObject:
   - component: {fileID: 979105570}
   - component: {fileID: 979105573}
   - component: {fileID: 979105572}
-  - component: {fileID: 979105571}
+  - component: {fileID: 979105574}
   m_Layer: 0
   m_Name: oscurecerPantalla
   m_TagString: Untagged
@@ -6946,7 +6961,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979105569}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 435.5111, y: 114.06245, z: 518.46564}
   m_ConstrainProportionsScale: 0
@@ -6958,18 +6973,6 @@ RectTransform:
   m_AnchoredPosition: {x: -940.5, y: -536.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &979105571
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979105569}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 1
 --- !u!114 &979105572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6983,7 +6986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7008,6 +7011,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979105569}
   m_CullTransparentMesh: 1
+--- !u!114 &979105574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979105569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1001 &983456889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7352,11 +7369,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5104662483343490706, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.51
+      value: -8.99
       objectReference: {fileID: 0}
     - target: {fileID: 5104662483343490706, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.65
+      value: -1.95
       objectReference: {fileID: 0}
     - target: {fileID: 5104662483343490706, guid: 3a3a77baa455b12468f4f61baa59b477, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7814,7 +7831,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!70 &1023588826
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -9328,10 +9345,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22b7e236a667e14085cfd971371a652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameControllerScript
-  velocidad: 1.5
+  camara: {fileID: 584377754}
+  velocidad: 0.1
   velocidadMaxima: 2
   monedasTotales: 100
-  oscurecedor: {fileID: 979105571}
+  oscurecedor: {fileID: 33668021}
 --- !u!1001 &1253313416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16725,6 +16743,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 584377754}
+  - {fileID: 33668020}
   - {fileID: 619394802}
   - {fileID: 557480675}
   - {fileID: 1539171682}
@@ -16738,7 +16757,6 @@ SceneRoots:
   - {fileID: 1880354536}
   - {fileID: 356266025}
   - {fileID: 1498826915}
-  - {fileID: 33668020}
   - {fileID: 1586974978}
   - {fileID: 1248422444}
   - {fileID: 578047786}
