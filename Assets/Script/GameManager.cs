@@ -4,7 +4,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public static int vidas = 2;
+    public static bool estoyMuerto = false;
+    public static int muertes = 0;
     public int puntos = 0;
     public int puntosGlobales = 0;
 
@@ -16,12 +18,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         // Asignar instancia
-        Instance = this;
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
-        // Opcional: mantener entre escenas
-        DontDestroyOnLoad(gameObject);
+    
     }
 
     GameObject MonedasText;
@@ -36,6 +40,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Debug.Log("Puntos" + puntos);
+        Debug.Log("Vidas: " + vidas);
     }
 
     public void ActualizaMarcador(int valor)

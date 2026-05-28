@@ -1,20 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MovPersonaje : MonoBehaviour
 {
-
     public float velocidad = 5f;
     public float potenciaSalto = 35f;
     public bool direccionDerecha = true;
     bool puedoSaltar = false;
+
     //private bool tocaSuelo; //para que detecte que no toca suelo y aplicarlo para que contabilice el salto una vez deje de tocar el suelo.
     Animator controlAnimacion;
     private int contarSalto = 0; // contabilizador de salto
     private Rigidbody2D rb;
 
     GameObject respawn;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,45 +23,44 @@ public class MovPersonaje : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         controlAnimacion = this.GetComponent<Animator>();
 
-        respawn = GameObject.Find ("Respawn");
-        
+        respawn = GameObject.Find("Respawn");
     }
 
     // Update is called once per frame
     void Update()
     {
         //APLICAR CUANDO SE JUNTE TODO
-        //if(GameManager.estoyMuerto) return; //esto hace que el resto de código se ignore al morir
+        if (GameManager.estoyMuerto)
+        {
+            return;
+        }
+        //esto hace que el resto de código se ignore al morir
 
-    // ANDAR/MOVERSE
+        // ANDAR/MOVERSE
 
         Vector2 movTeclas = InputSystem.actions["Move"].ReadValue<Vector2>();
-       
-      
-      float miDeltaTime = Time.deltaTime;
 
-        transform.Translate(
-            movTeclas*(Time.deltaTime * velocidad),
-            0
-        );
+        float miDeltaTime = Time.deltaTime;
 
-
+        transform.Translate(movTeclas * (Time.deltaTime * velocidad), 0);
 
         //FLIP izquierda y derecha
 
         if (movTeclas.x > 0 && !direccionDerecha)
         {
             girar();
-        } else if (movTeclas.x < 0 && direccionDerecha)
+        }
+        else if (movTeclas.x < 0 && direccionDerecha)
         {
             girar();
-        };
-        
+        }
+        ;
+
         //this.transform.Translate(movTeclas.x, 0, 0);
         /*if (movTeclas.x < 0)
         {
            direccionDerecha = false;
-           this.GetComponent<SpriteRenderer>().flipX = true;   
+           this.GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (movTeclas.x > 0)
         {
@@ -68,8 +68,8 @@ public class MovPersonaje : MonoBehaviour
             this.GetComponent<SpriteRenderer>().flipX = false;
         };*/
 
-    //ANIMACIÓN CAMINADO
-           if (movTeclas.x != 0)
+        //ANIMACIÓN CAMINADO
+        if (movTeclas.x != 0)
         {
             controlAnimacion.SetBool("activaCamina", true);
         }
@@ -78,52 +78,53 @@ public class MovPersonaje : MonoBehaviour
             controlAnimacion.SetBool("activaCamina", false);
         }
 
-    
-    //SALTO
+        //SALTO
 
         bool salto = InputSystem.actions["Jump"].WasPressedThisFrame();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
-        
-        //Debug.DrawRay(transform.position, Vector2.down * 0.5f, Color.magenta);
 
+        //Debug.DrawRay(transform.position, Vector2.down * 0.5f, Color.magenta);
 
         if (hit == true) //(hit.collider == true)
         {
             puedoSaltar = true;
-           // Debug.Log(hit.collider.name);
+            // Debug.Log(hit.collider.name);
             //tocaSuelo = true;
             contarSalto = 0; //resetea el contabilizador del salto a 0
-            
-        }else
+        }
+        else
         {
             puedoSaltar = false;
-        };
-        
+        }
+        ;
+
         //Debug.Log(puedoSaltar);
 
-
-        if (salto && (puedoSaltar || contarSalto < 1) )// añadido puedo saltar y contar salto
+        if (salto && (puedoSaltar || contarSalto < 1)) // añadido puedo saltar y contar salto
         {
-           rb.AddForce( new Vector2 (0, potenciaSalto),ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, potenciaSalto), ForceMode2D.Impulse);
 
             contarSalto++; //incrementará el salto a doble salto
         }
 
-
-
         //Comprobar si me he salido de la pantalla CAMBIAR VALOR
-        if(transform.position.y <= -7){
+        if (transform.position.y <= -7)
+        {
             Respawnear();
         }
 
         //APLICAR CUANDO SE JUNTE TODO
         //SIN VIDA
-        /*if(GameManager.vidas <= 0)
+        if (GameManager.vidas <= 0)
         {
-            GameManager.estoyMuerto= true;
-        }*/
-        
-        
+            GameManager.estoyMuerto = true;
+        }
+        /* else
+         {
+             Debug.Log("Sin vidas, cargando menú");
+             GameManager.vidas = 0;
+             SceneManager.LoadScene("UIinterfaz1"); // nombre real de tu escena de menú
+         }*/
     }
 
     //GIRAR
@@ -140,11 +141,27 @@ public class MovPersonaje : MonoBehaviour
     //Para volver al lugar de salida una vez mueras (donde se encuentre el respawn)
     public void Respawnear()
     {
-        //Debug.Log("vidas: "+GameManager.vidas);
-        //GameManager.vidas = GameManager.vidas -1;
-        //Debug.Log("vidas: "+GameManager.vidas);
+        //GameManager.vidas = GameManager.vidas - 1;
+
         transform.position = respawn.transform.position;
     }
 
+    public void Morir()
+    {
+        // Restar vida
+        GameManager.vidas--;
 
+        Debug.Log("Vidas restantes: " + GameManager.vidas);
+
+        // Si aún quedan vidas → respawn
+        if (GameManager.vidas > 0)
+        {
+            Respawnear();
+        }
+        else
+        {
+            // Sin vidas → cargar menú
+            SceneManager.LoadScene("UIinterfaz1"); // Cambia por el nombre real de tu menú
+        }
+    }
 }
