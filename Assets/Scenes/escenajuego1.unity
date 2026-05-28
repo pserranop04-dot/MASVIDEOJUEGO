@@ -9350,6 +9350,8 @@ MonoBehaviour:
   velocidadMaxima: 2
   monedasTotales: 100
   oscurecedor: {fileID: 33668021}
+  limiteX: 20
+  detenerScroll: 0
 --- !u!1001 &1253313416
 PrefabInstance:
   m_ObjectHideFlags: 0
