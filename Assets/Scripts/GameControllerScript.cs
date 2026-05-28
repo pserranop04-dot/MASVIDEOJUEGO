@@ -7,6 +7,8 @@ public class GameControllerScript : MonoBehaviour
     public float velocidadMaxima = 5f;
     public int monedasTotales = 100;
     public CanvasGroup oscurecedor;
+    public float limiteX = 39.5f; // posición donde la cámara debe parar
+    public bool detenerScroll = false;
 
     float aceleradorMonedas;
 
@@ -17,6 +19,9 @@ public class GameControllerScript : MonoBehaviour
 
     void Update()
     {
+        if (detenerScroll)
+            return; // la cámara ya no se mueve
+
         int puntos = GameManager.Instance.puntos;
 
         // -----------------------------
@@ -54,6 +59,13 @@ public class GameControllerScript : MonoBehaviour
         else
         {
             oscurecedor.alpha = 0f;
+        }
+        if (transform.position.x >= limiteX)
+
+        //que no se pase la camara de ejelimiteX
+        {
+            transform.position = new Vector3(limiteX, transform.position.y, transform.position.z);
+            detenerScroll = true;
         }
     }
 }
