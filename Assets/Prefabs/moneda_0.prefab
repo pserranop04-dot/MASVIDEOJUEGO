@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2957809020509446216}
   - component: {fileID: 4263040278541218008}
   - component: {fileID: 3537702172864326698}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: moneda_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -177,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4324288855955935691}
   - component: {fileID: 4113070685841991413}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: moneda_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7322668173458425898}
   - component: {fileID: 446257011825514013}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: brillo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
