@@ -39,8 +39,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Puntos" + puntos);
-        Debug.Log("Vidas: " + vidas);
+        //Debug.Log("Puntos" + puntos);
+        //Debug.Log("Vidas: " + vidas);
     }
 
     public void ActualizaMarcador(int valor)

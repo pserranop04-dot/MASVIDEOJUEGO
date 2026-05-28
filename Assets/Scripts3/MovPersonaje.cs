@@ -164,4 +164,19 @@ public class MovPersonaje : MonoBehaviour
             SceneManager.LoadScene("UIinterfaz1"); // Cambia por el nombre real de tu menú
         }
     }
+
+    //Muerte por colisión con Cámara
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("MainCamera"))
+        {
+            // Reiniciar el juego
+            Debug.Log("Colisión con cámara, reiniciando juego...");       
+        }
+    }
+
+
 }
+
+
+

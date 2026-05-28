@@ -26,7 +26,7 @@ public class GameControllerScript : MonoBehaviour
             velocidadMaxima
         );
 
-        Debug.Log("Velocidad final: " + velocidadFinal);
+        //Debug.Log("Velocidad final: " + velocidadFinal);
 
         // Movimiento real
         transform.Translate(velocidadFinal * Time.deltaTime, 0, 0);
@@ -58,4 +58,8 @@ public class GameControllerScript : MonoBehaviour
             oscurecedor.alpha = alpha;
         }
     }
+
+
+
+
 }
