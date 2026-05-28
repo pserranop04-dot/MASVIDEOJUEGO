@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameControllerScript : MonoBehaviour
 {
+    public Transform camara;
     public float velocidad = 1f;
     public float velocidadMaxima = 5f;
     public int monedasTotales = 100;
@@ -11,55 +12,48 @@ public class GameControllerScript : MonoBehaviour
 
     void Start()
     {
-        // Cada moneda aporta aceleración real
         aceleradorMonedas = velocidadMaxima / monedasTotales;
     }
 
     void Update()
     {
-        float aceleracionTotal = aceleradorMonedas * GameManager.Instance.puntos;
+        int puntos = GameManager.Instance.puntos;
 
-        // Velocidad final limitada
+        // -----------------------------
+        //   VELOCIDAD
+        // -----------------------------
+        float aceleracionTotal = aceleradorMonedas * puntos;
+
         float velocidadFinal = Mathf.Clamp(
             velocidad + aceleracionTotal,
             velocidad,
             velocidadMaxima
         );
 
-        //Debug.Log("Velocidad final: " + velocidadFinal);
-
-        // Movimiento real
-        transform.Translate(velocidadFinal * Time.deltaTime, 0, 0);
-
-        //   PITCH
-
-        float t = velocidadFinal / velocidadMaxima;
-
-        // Pitch objetivo según velocidad
-        float pitchObjetivo = Mathf.Lerp(1f, 1.25f, t);
-
-        // Amortiguación suave (no cambia de golpe)
-        AudioManager.instancia.musicaSource.pitch = Mathf.Lerp(
-            AudioManager.instancia.musicaSource.pitch,
-            pitchObjetivo,
-            0.05f
-        );
+        // Mover la cámara
+        camara.Translate(velocidadFinal * Time.deltaTime, 0, 0);
 
         // -----------------------------
         //   OSCURECER A PARTIR DE 20
         // -----------------------------
-        if (GameManager.Instance.puntos >= 20)
+        if (puntos >= 50)
         {
-            float puntosExtra = GameManager.Instance.puntos - 20;
-            float alpha = Mathf.Clamp(puntosExtra * 0.01f, 0f, 1f);
+            float puntosExtra = puntos - 50;
 
-            Debug.Log("Alpha actual: " + alpha);
+            // Oscurecimiento lento
+            float alpha = puntosExtra * 0.005f;
+
+            // Límite máximo (no llega a opaco)
+            float alphaMax = 0.98f;
+
+            // Clamp final
+            alpha = Mathf.Clamp(alpha, 0f, alphaMax);
 
             oscurecedor.alpha = alpha;
         }
+        else
+        {
+            oscurecedor.alpha = 0f;
+        }
     }
-
-
-
-
 }
