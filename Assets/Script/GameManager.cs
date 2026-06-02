@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Transform personaje;
     public Transform respawn;
     public TextMeshProUGUI monedasText;
+    public TextMeshProUGUI monedasGlobalesText;
 
     private void Awake()
     {
@@ -39,6 +40,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+
+        if(SceneManager.GetActiveScene().name == "escenajuego1"){
+
+            if (monedasText == null)
+            {
+                GameObject obj = GameObject.Find("MonedasText");
+                if (obj != null)
+                    monedasText = obj.GetComponent<TextMeshProUGUI>();
+            }
+        }
+
+        if(SceneManager.GetActiveScene().name == "UInterfaz1"){
+
+            if (monedasGlobalesText == null)
+            {
+                GameObject contadorMonedas = GameObject.Find("contadorMonedas");
+                if (contadorMonedas != null)
+                    monedasGlobalesText = contadorMonedas.GetComponent<TextMeshProUGUI>();
+                    monedasGlobalesText.text = puntosGlobales.ToString();
+            }
+        }
+
+
+
+        
+        if(vidas == 0)
+        {
+            GuardarPuntosGlobales();
+            IrAlMenu();
+        }
+    }
+
     public void ActualizaMarcador(int valor)
     {
         puntos += valor;
@@ -47,23 +82,40 @@ public class GameManager : MonoBehaviour
             monedasText.text = puntos.ToString();
     }
 
+    public void GuardarPuntosGlobales()
+    {
+        puntosGlobales += puntos;
+        puntos = 0;
+
+    }
+
     public void MuertePorCamara()
     {
-        if (estoyMuerto)
-            return;
+
+        if (estoyMuerto) return;
+        estoyMuerto = true;
+
+        vidas--;
+        muertes++;
+
+        Respawn();
+
+/*
+        
 
         estoyMuerto = true;
         vidas--;
         muertes++;
 
+
         if (vidas > 0)
         {
             Respawn();
         }
-        else
-        {
-            IrAlMenu();
-        }
+*/
+
+
+
     }
 
     private void Respawn()

@@ -12,6 +12,10 @@ public class Dead : MonoBehaviour
 
             // Llamar al GameManager para gestionar la muerte
             GameManager.Instance.MuertePorCamara();
+
+            
         }
     }
+
+    
 }

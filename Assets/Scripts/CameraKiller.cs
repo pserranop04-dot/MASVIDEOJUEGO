@@ -13,7 +13,7 @@ public class CameraKiller : MonoBehaviour
     {
         transform.position = posicionInicial;
     }
-
+/*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Solo reaccionar si el objeto que entra es el jugador
@@ -24,5 +24,5 @@ public class CameraKiller : MonoBehaviour
             // Llamar al GameManager para gestionar la muerte
             GameManager.Instance.MuertePorCamara();
         }
-    }
+    }*/
 }
