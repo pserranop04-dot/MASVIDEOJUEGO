@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class GameControllerScript : MonoBehaviour
 {
@@ -6,12 +7,14 @@ public class GameControllerScript : MonoBehaviour
     public float velocidad = 1f;
     public float velocidadMaxima = 5f;
     public int monedasTotales = 100;
-    public CanvasGroup oscurecedor;
+    //public CanvasGroup oscurecedor;
     public float limiteX = 39.5f; // posición donde la cámara debe parar
     public bool detenerScroll = false;
 
     float aceleradorMonedas;
 
+    public Light2D globalLight;
+    
     void Start()
     {
         aceleradorMonedas = velocidadMaxima / monedasTotales;
@@ -46,19 +49,20 @@ public class GameControllerScript : MonoBehaviour
             float puntosExtra = puntos - 50;
 
             // Oscurecimiento lento
-            float alpha = puntosExtra * 0.005f;
+            float t = puntosExtra * 0.005f;
 
             // Límite máximo (no llega a opaco)
-            float alphaMax = 0.98f;
+            float tMax = 0.98f;
 
-            // Clamp final
-            alpha = Mathf.Clamp(alpha, 0f, alphaMax);
+            t = Mathf.Clamp (t, 0f, tMax);
 
-            oscurecedor.alpha = alpha;
+            // interpolación de color
+            globalLight.color = Color.Lerp(Color.white, Color.black, t );
+
         }
         else
         {
-            oscurecedor.alpha = 0f;
+            globalLight.color = Color.white;
         }
         if (transform.position.x >= limiteX)
 
