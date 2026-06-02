@@ -3125,6 +3125,7 @@ MonoBehaviour:
   personaje: {fileID: 0}
   respawn: {fileID: 0}
   monedasText: {fileID: 0}
+  monedasGlobalesText: {fileID: 0}
 --- !u!4 &1453358043
 Transform:
   m_ObjectHideFlags: 0
@@ -3423,7 +3424,7 @@ GameObject:
   - component: {fileID: 1576389769}
   - component: {fileID: 1576389771}
   m_Layer: 5
-  m_Name: contadormonedas
+  m_Name: contadorMonedas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
